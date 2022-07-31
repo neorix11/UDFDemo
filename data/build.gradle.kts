@@ -34,7 +34,10 @@ android {
 
 dependencies {
 
-    implementation(libs.androidx.ktxcore)
+    with(libs){
+        implementation(androidx.ktxcore)
+        implementation(koin.core)
+    }
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")

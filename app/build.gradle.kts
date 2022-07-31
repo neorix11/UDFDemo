@@ -41,9 +41,15 @@ android {
 }
 
 dependencies {
-    implementation(libs.androidx.ktxcore)
-    implementation(libs.bundles.lifecycle)
-    implementation(libs.bundles.compose)
+
+    with(libs) {
+        implementation(androidx.ktxcore)
+        implementation(bundles.lifecycle)
+        implementation(bundles.compose)
+        implementation(bundles.koin)
+        implementation(coil)
+    }
+
 
     implementation(project(":data"))
     implementation(project(":domain"))
