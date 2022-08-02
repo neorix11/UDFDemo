@@ -19,6 +19,7 @@ import com.bluelampcreative.udfdemo.ui.views.moviesearch.MovieSearchView
 import com.bluelampcreative.udfdemo.nav.Screen
 import com.bluelampcreative.udfdemo.nav.bottomNavigationItems
 import com.bluelampcreative.udfdemo.ui.theme.UDFDemoTheme
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,66 +30,54 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalCoroutinesApi
 @Composable
 fun MainLayout() {
 
     val navController = rememberNavController()
 
     UDFDemoTheme {
-      Scaffold(
-          bottomBar = {
-              BottomAppBar(
-                  cutoutShape = MaterialTheme.shapes.small.copy(CornerSize(percent = 50))
-              ) {
-                  val navBackStackEntry by navController.currentBackStackEntryAsState()
-                  val currentRoute = navBackStackEntry?.destination?.route
+        Scaffold(
+            bottomBar = {
+                BottomAppBar(
+                    cutoutShape = MaterialTheme.shapes.small.copy(CornerSize(percent = 50))
+                ) {
 
-                  bottomNavigationItems.forEach { bottomNavigationItem ->
-                      BottomNavigationItem(
-                          icon = {
-                              Icon(
-                                  bottomNavigationItem.icon,
-                                  contentDescription = bottomNavigationItem.iconDescription
-                              )
-                          },
-                          label = { Text(bottomNavigationItem.iconDescription) },
-                          selected = currentRoute == bottomNavigationItem.route,
-                          onClick = {
-                              navController.navigate(bottomNavigationItem.route) {
-                                  popUpTo(navController.graph.id)
-                                  launchSingleTop = true
-                              }
-                          }
-                      )
-                  }
-              }
-          }
-      ){ paddingValues ->
-          Box(Modifier.padding(paddingValues)) {
-              NavHost(navController = navController, startDestination = Screen.MovieSearch.title) {
-                  composable(Screen.MovieSearch.title) {
-                      MovieSearchView{
-                          navController.navigate(Screen.MovieDetail.title + "/${it.title}/${it.id}")
-                      }
-                  }
-//                  composable(Screen.WatchList.title) {
-//                      WatchListView()
-//                  }
-//                  composable(Screen.MovieDetail.title + "/{title}/{movieId}") {
-//                      MovieDetailView(
-//                          it.arguments?.get("title") as String,
-//                          it.arguments?.get("movieId") as String,
-//                          popBack = { navController.popBackStack() }
-//                      )
-//                  }
-              }
-          }
-      }
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currencyRoute = navBackStackEntry?.destination?.route
+
+                    bottomNavigationItems.forEach { item ->
+                        BottomNavigationItem(
+                            icon = { Icon(item.icon  , contentDescription = item.iconDescription)},
+                            label = { Text(item.iconDescription)},
+                            selected = currencyRoute == item.iconDescription,
+                            onClick = {
+                                navController.navigate(item.route) {
+                                    popUpTo(navController.graph.id)
+                                    launchSingleTop = true
+                                }
+                            }
+                        )
+                    }
+                }
+            }
+        ) { paddingValues ->
+            Box(Modifier.padding(paddingValues)) {
+                NavHost(
+                    navController = navController,
+                    startDestination = Screen.MovieSearch.title
+                ) {
+                    composable(Screen.MovieSearch.title) {
+                        MovieSearchView {
+                            navController.navigate(Screen.MovieDetail.title + "/${it.title}/${it.id}")
+                        }
+                    }
+                    composable(Screen.WatchList.title) {
+                    }
+                    composable(Screen.MovieDetail.title + "/{title}/{movieId}") {
+                    }
+                }
+            }
+        }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    UDFDemoTheme{}
 }

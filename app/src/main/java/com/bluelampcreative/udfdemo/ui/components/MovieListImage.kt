@@ -1,4 +1,4 @@
-package com.demo.composables.components
+package com.bluelampcreative.udfdemo.ui.components
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable

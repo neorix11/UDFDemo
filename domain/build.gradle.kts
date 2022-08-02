@@ -13,6 +13,7 @@ dependencies {
     with(libs) {
         implementation(kotlinx.serialization)
         implementation(kotlinx.coroutines.core)
+        implementation(koin.core)
         implementation(parcelize)
     }
 }

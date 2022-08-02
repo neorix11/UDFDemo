@@ -1,10 +1,9 @@
-package com.demo.composables.components
+package com.bluelampcreative.udfdemo.ui.components
 
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.navigation.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.bluelampcreative.udfdemo.nav.bottomNavigationItems

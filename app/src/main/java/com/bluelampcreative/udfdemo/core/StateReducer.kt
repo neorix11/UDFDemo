@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.SharingStarted.Companion.Eagerly
 
 interface IStateReducer <STATE, ACTION>: StateFlow<STATE> {
-    fun handleAction(action: ACTION)
+    fun dispatch(action: ACTION)
 }
 
 private class StateReducer<STATE, ACTION>(
@@ -34,12 +34,12 @@ private class StateReducer<STATE, ACTION>(
     override val value: STATE
         get() = stateFlow.value
 
-    override fun handleAction(action: ACTION) {
+    override fun dispatch(action: ACTION) {
         events.trySend(action)
     }
 }
 
 fun <STATE, ACTION> ViewModel.reducer(
     initialState: STATE,
-    reduceState: (STATE, ACTION) -> STATE
-): IStateReducer<STATE, ACTION> = StateReducer(initialState, reduceState, viewModelScope)
+    reducer: (STATE, ACTION) -> STATE
+): IStateReducer<STATE, ACTION> = StateReducer(initialState, reducer, viewModelScope)

@@ -36,7 +36,9 @@ dependencies {
 
     with(libs){
         implementation(androidx.ktxcore)
+        implementation(kotlinx.coroutines.core)
         implementation(koin.core)
+        implementation(bundles.ktor)
     }
 
     testImplementation("junit:junit:4.13.2")

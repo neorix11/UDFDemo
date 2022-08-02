@@ -6,3 +6,8 @@ sealed class LoadingState {
     object Loaded: LoadingState()
     data class Error(val error: String): LoadingState()
 }
+
+sealed class ExpandedListState {
+    object Expanded: ExpandedListState()
+    data class Limited(val items: Int): ExpandedListState()
+}
