@@ -25,7 +25,7 @@ class MovieSearchViewModel(
                     state.dispatch(MovieSearchViewActions.SetMovieSearchResults(response.value.results))
                 }
                 is Outcome.Error -> {
-                    println("THERE WAS AN ERROR")
+                    state.dispatch(MovieSearchViewActions.SetRequestError(response.error.toString()))
                 }
             }
         }

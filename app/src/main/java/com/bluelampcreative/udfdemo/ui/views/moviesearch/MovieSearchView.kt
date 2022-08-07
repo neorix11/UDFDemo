@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.bluelampcreative.domain.models.Movie
+import com.bluelampcreative.udfdemo.ui.components.LoadMoreButton
 import com.bluelampcreative.udfdemo.ui.state.LoadingState
 import com.bluelampcreative.udfdemo.ui.components.MovieDisplayList
 import com.bluelampcreative.udfdemo.ui.components.MovieSearchBar
@@ -60,11 +61,7 @@ fun MovieSearchView(
                     movieSelected(movie)
                 }
                 if(state.value.expandableListState is ExpandedListState.Limited) {
-                    Box(modifier = Modifier.fillMaxWidth()) {
-                        Button(onClick = { viewModel.showMoreListings()}) {
-                            Text(text = "Show More")
-                        }
-                    }
+                    LoadMoreButton{ viewModel.showMoreListings() }
                 }
             }
             else -> {
